@@ -8,6 +8,202 @@
 <title>famX — Loja Digital</title>
 <style>
 *{box-sizing:border-box}
+
+<!-- FAMX SUPPORT -->
+<style>
+  #famx-suporte {
+    background: #09060f;
+    color: #fff;
+    border: 1px solid #8b2cff;
+    border-radius: 18px;
+    padding: 22px 16px;
+    margin: 30px auto;
+    max-width: 600px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 0 18px #8b2cff22;
+  }
+
+  #famx-suporte h2 {
+    color: #c084fc;
+    text-align: center;
+    margin-top: 0;
+  }
+
+  #famx-suporte p {
+    color: #c9bdd8;
+    text-align: center;
+  }
+
+  .famx-opcao {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    margin: 10px 0;
+    padding: 15px;
+    background: #171020;
+    color: white;
+    border: 1px solid #6735a0;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 15px;
+  }
+
+  .famx-opcao:focus,
+  .famx-opcao:hover {
+    border-color: #d8b4fe;
+    background: #251438;
+  }
+
+  .famx-opcao small {
+    display: block;
+    color: #bda9d2;
+    margin-top: 5px;
+  }
+
+  #famx-form {
+    display: grid;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  #famx-form input,
+  #famx-form textarea,
+  #famx-form select {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 13px;
+    border-radius: 9px;
+    background: #171020;
+    color: white;
+    border: 1px solid #6735a0;
+    font-size: 15px;
+  }
+
+  #famx-form label {
+    color: #d8b4fe;
+  }
+
+  .famx-enviar {
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #9333ea;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .famx-whatsapp {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #123b26;
+    color: #a7f3c0;
+    text-decoration: none;
+    font-weight: bold;
+  }
+</style>
+
+<section id="famx-suporte">
+  <h2>💜 famX SUPPORT</h2>
+  <p>Olá! Qual é o seu problema?</p>
+  <p>Selecione uma opção para começar o atendimento.</p>
+
+  <button class="famx-opcao" type="button"
+    data-problema="Paguei e não recebi">
+    🛍️ Paguei e não recebi
+    <small>Minha compra não chegou.</small>
+  </button>
+
+  <button class="famx-opcao" type="button"
+    data-problema="Problema no pagamento">
+    💳 Problema no pagamento
+    <small>Pix ou pagamento com erro.</small>
+  </button>
+
+  <button class="famx-opcao" type="button"
+    data-problema="Problema com o produto">
+    📦 Problema com o produto
+    <small>Preciso de ajuda com meu pedido.</small>
+  </button>
+
+  <button class="famx-opcao" type="button"
+    data-problema="Outra dúvida">
+    💬 Outra dúvida
+    <small>Quero falar com o suporte.</small>
+  </button>
+
+  <form id="famx-form">
+    <label for="famx-problema">Tipo de problema</label>
+    <select id="famx-problema" required>
+      <option value="">Selecione um problema</option>
+      <option>Paguei e não recebi</option>
+      <option>Problema no pagamento</option>
+      <option>Problema com o produto</option>
+      <option>Outra dúvida</option>
+    </select>
+
+    <label for="famx-pedido">Número do pedido (opcional)</label>
+    <input id="famx-pedido" placeholder="Ex.: #1024">
+
+    <label for="famx-descricao">Conte o que aconteceu</label>
+    <textarea id="famx-descricao" rows="4"
+      placeholder="Descreva seu problema..." required></textarea>
+
+    <button class="famx-enviar" type="submit">
+      Preparar mensagem
+    </button>
+  </form>
+
+  <a class="famx-whatsapp"
+    href="https://www.whatsapp.com/"
+    target="_blank" rel="noopener">
+    ☎ Fale conosco pelo WhatsApp
+  </a>
+</section>
+
+<script>
+  document.querySelectorAll("#famx-suporte [data-problema]")
+    .forEach(function(botao) {
+      botao.addEventListener("click", function() {
+        document.getElementById("famx-problema").value =
+          botao.dataset.problema;
+        document.getElementById("famx-form").scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      });
+    });
+
+  document.getElementById("famx-form")
+    .addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const problema =
+        document.getElementById("famx-problema").value;
+      const pedido =
+        document.getElementById("famx-pedido").value;
+      const descricao =
+        document.getElementById("famx-descricao").value;
+
+      const mensagem =
+        "Olá! Preciso de suporte da famX.\n" +
+        "Problema: " + problema + "\n" +
+        "Pedido: " + (pedido || "Não informado") + "\n" +
+        "Descrição: " + descricao;
+
+      const url =
+        "https://wa.me/?text=" + encodeURIComponent(mensagem);
+
+      window.open(url, "_blank");
+    });
+</script>
+<!-- FIM FAMX SUPPORT -->
+
 body{margin:0;background:#0b0614;color:#fff;font-family:Arial,sans-serif}
 header{padding:18px 5%;display:flex;justify-content:space-between;align-items:center;background:#150b22;border-bottom:1px solid #45205f}
 .logo{font-size:28px;font-weight:900}.logo span{color:#bb72ff}
